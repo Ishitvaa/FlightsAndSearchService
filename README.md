@@ -1,0 +1,13 @@
+/
+    - src/
+        - index.js // server wale file
+        - models/
+        - controllers/
+        - middlewares/
+        - utils/
+        - repository/
+        - services/
+        - config/
+    - tests/ [later]
+    - static/
+    - temp/
