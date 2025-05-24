@@ -1,6 +1,9 @@
 // the repository is responsible for any kind of communication with any datasource( data fetching ) 
 const { City } = require('../models/index.js');
 
+// sequelize operator for filtering 
+const { Op } = require('sequelize');
+
 class CityRepository{
 
     async createCity({ name }) {
@@ -48,6 +51,26 @@ class CityRepository{
             return city;
         } catch (error) {
             console.log('Something went wrong in repository layer');
+            throw {error};
+        }
+    }
+
+    async getAllCities(filter) {
+        try {
+            if (filter?.name) {
+                const cities = await City.findAll({
+                    where : {
+                        name : {
+                            [Op.startsWith] : filter?.name 
+                        }
+                    }
+                })
+                return cities;
+            }
+            const cities = await City.findAll();
+            return cities;
+        } catch (error) {
+            console.log('something went wrong in repository layer');
             throw {error};
         }
     }

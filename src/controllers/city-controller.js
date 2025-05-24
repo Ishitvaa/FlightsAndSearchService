@@ -25,7 +25,7 @@ const create = async(req, res) => {
 // GET -> /city/:id
 const get = async(req, res) => {
     try {
-        const city = await cityService.getCity(req.params.cityId);
+        const city = await cityService.getCity(req.params.id);
         return res.status(201).json({
             data : city,
             status: true,
@@ -46,7 +46,7 @@ const get = async(req, res) => {
 // Patch -> /city/:id -> data(req.body)
 const update= async(req, res) => {
     try {
-        const city = await cityService.updateCity(req.params.cityId, req.body);
+        const city = await cityService.updateCity(req.params.id, req.body);
         return res.status(201).json({
             data : city,
             status : true,
@@ -85,11 +85,33 @@ const destroy = async(req, res) => {
     }
 }
 
+// to get all cities
+const getAll = async(req, res) => {
+    try {
+        const cities = await cityService.getAllCities(req.query);
+        return res.status(200).json({
+            data : cities,
+            status : true,
+            message : 'Successfully fetched all cities',
+            error : {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data : {},
+            status : false,
+            message : 'Not able to fetch all cities',
+            error : error
+        })
+    }
+}
+
 module.exports = {
     create,
     get,
     destroy,
-    update
+    update,
+    getAll
 }
 
 // work flow : controller -> service -> repository 
