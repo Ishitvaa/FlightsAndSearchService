@@ -4,6 +4,8 @@ const ApiRoutes = require('./routes/index.js');
 // import PORT 
 const { PORT } = require('./config/serverConfig.js'); 
 
+const { Airport, City } = require('./models/index.js');
+
 const setUpAndStartServer = async () => {
 
     const app = express();
@@ -17,6 +19,18 @@ const setUpAndStartServer = async () => {
         console.log(`Server is listening on Port ${PORT}`);
         // console.log(process.env);
     });
+
+    // include -> 
+    const airport = await City.findAll({
+        // where : {
+        //     id : 11
+        // },
+        include : [{
+            model : Airport
+        }]
+    })
+
+    console.log(airport);
 
 };
 
