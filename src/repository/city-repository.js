@@ -55,6 +55,7 @@ class CityRepository{
         }
     }
 
+    // in getAllCities we can apply filter based on name
     async getAllCities(filter) {
         try {
             if (filter?.name) {
